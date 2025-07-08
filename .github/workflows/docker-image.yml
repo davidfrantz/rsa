@@ -3,6 +3,10 @@ name: Docker
 on:
   push:
 
+permissions:
+  packages: write
+  contents: read
+
 env:
   IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/rsa-binary
   VERSION: latest
