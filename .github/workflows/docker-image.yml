@@ -4,25 +4,21 @@ on:
   push:
 
 env:
-  DOCKER_USER: ${{secrets.DOCKER_USER}}
-  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-  IMAGE_NAME: rsa-binary
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/rsa-binary
   VERSION: latest
 
 jobs:
   push:
-    name: Push image to Docker Hub
+    name: Push image to GitHub Container Registry
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
       - name: Docker login
-        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build image
-        run: |
-          #docker pull $DOCKER_USER/$IMAGE_NAME:$VERSION
-          docker build . --file Dockerfile --tag $IMAGE_NAME
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME
       - name: Push image
         run: |
-          docker tag $IMAGE_NAME $DOCKER_USER/$IMAGE_NAME:$VERSION
-          docker push $DOCKER_USER/$IMAGE_NAME:$VERSION
+          docker tag $IMAGE_NAME $IMAGE_NAME:$VERSION
+          docker push $IMAGE_NAME:$VERSION
