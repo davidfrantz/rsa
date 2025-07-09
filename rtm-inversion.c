@@ -230,6 +230,12 @@ args_t args;
 //  #pragma omp for
   for (int c = 0; c < input.ncell; c++) {
 
+    for (int o = 0; o < lut.ncol; o++) {
+      inversion[o][c] = -1.0;
+    }
+    inversion[lut.ncol][c] = -1.0; // store -1.0 for mae in addtional band
+
+
     int skip = 0;
 
     for (int b = 0; b < input.nband; b++) {
@@ -241,6 +247,7 @@ args_t args;
     }
 
     if (skip) continue;
+    
 
     float min_mae = FLT_MAX;
     int i_min_mae = -1;
@@ -301,13 +308,7 @@ args_t args;
 
     //printf("cell %d: min mae = %.2f at row %d. %d iterations used\n", c, min_mae, i_min_mae, ctr);
 
-    if (i_min_mae < 0) {
-      for (int o = 0; o < lut.ncol; o++) {
-        inversion[o][c] = -1.0;
-      }
-      inversion[lut.ncol][c] = -1.0; // store -1.0 for mae in addtional band
-      continue;
-    } else {
+    if (i_min_mae >= 0) {
       for (int o = 0; o < lut.ncol; o++) {
         inversion[o][c] = lut.data[i_min_mae][o];
       }
