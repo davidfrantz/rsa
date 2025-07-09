@@ -131,11 +131,11 @@ args_t args;
     usage(argv[0], FAILURE);
   }
 
-  for (int i = 0; i < simulations.nrow; i++) {
-    for (int j = 0; j < simulations.ncol; j++) {
-      simulations.data[i][j] *= 10000;
-    }
-  }
+  //for (int i = 0; i < simulations.nrow; i++) {
+  //  for (int j = 0; j < simulations.ncol; j++) {
+  //    simulations.data[i][j];
+  //  }
+  //}
 
 
   print_table(&lut, true, false);
