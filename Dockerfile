@@ -17,4 +17,8 @@ RUN echo "building rsa tools" && \
   make && \
   make install
 
+FROM davidfrantz/base:latest AS final
+
+COPY --chown=docker:docker --from=builder $HOME/bin $HOME/bin
+
 WORKDIR /home/docker

@@ -54,8 +54,8 @@ rtm-inversion: utils rtm-inversion.c
 install:
 	chmod 0755 max-ndvi
 	chmod 0755 rtm-inversion
-	cp max-ndvi /usr/local/bin/
-	cp rtm-inversion /usr/local/bin/
+	cp max-ndvi $(HOME)/bin
+	cp rtm-inversion $(HOME)/bin
 
 clean:
 	rm *.o
