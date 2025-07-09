@@ -197,8 +197,10 @@ args_t args;
       //printf("  i_maximum: %d\n", i_maximum); 
       //printf("  current: %d\n", images[i].image[images[i].nband-1][c]);
       for (int b = 0; b < images[0].nband-1; b++) {
-        if (images[i].image[b][c] == SHRT_MIN ||
-            images[i].image[b][c] == SHRT_MAX) {
+//        if (images[i].image[b][c] == SHRT_MIN ||
+//            images[i].image[b][c] == SHRT_MAX) {
+        if (images[i].image[b][c] < 0 ||
+            images[i].image[b][c] > 10000) {
           skip = 1;
           break;
         }
